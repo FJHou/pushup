@@ -1,0 +1,15 @@
+{
+  "name": "push-up",
+  "version": "0.0.1",
+  "description": "push up",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "push",
+    "up"
+  ],
+  "author": "FJHou",
+  "license": "MIT"
+}
