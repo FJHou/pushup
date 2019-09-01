@@ -1,9 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, global.Pushup = factory());
-}(this, function () {
-  'use strict';
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = global || self, global.Pushup = factory());
+}(this, function () { 'use strict';
 
   class Pushup {
     constructor(options) {
@@ -44,7 +43,6 @@
       this.timer = setInterval(() => {
         moved += distance;
         this.setDistance(moved);
-        this.onPushup(moved);
         if (this.totalHeight === moved) {
           moved = 0;
           this.options.onEnd();
