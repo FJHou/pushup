@@ -37,12 +37,12 @@
       const firstChildCloned = pushuper.children[0].cloneNode(true);
       const pushHeight = pushuper.children[0].offsetHeight;
 
+      pushuper.appendChild(firstChildCloned);
+      container.style = `height:${pushHeight}px; overflow:hidden`;
+
       this.options.distance = pushHeight;
       this.count = pushuper.children.length;
       this.pushuper = pushuper;
-
-      pushuper.appendChild(firstChildCloned);
-      container.style = `height:${pushHeight}px; overflow:hidden`;
     }
 
     bindEvent() {
