@@ -4,7 +4,7 @@ class Pushup {
     this.options = Object.assign({
       el: "#pushup", // 滚动区域 必填
       distance: 100, //滚动距离 单位px 非必填
-      interval: 1, //滚动时间间隔 单位ms 非必填
+      interval: 3000, //滚动时间间隔 单位ms 非必填
       pushupCount: 1, // 需要推送的元素个数 非必填，如果填了distance那么次参数无效
       autoStart: true,
       onEnd: noop,
@@ -15,6 +15,7 @@ class Pushup {
     this.movedDistance = 0;
     this.count = 0;
     this.pushuper = null;
+    this.isAnimating = false;
 
     this.init();
     this.bindEvent();
@@ -43,12 +44,13 @@ class Pushup {
     this.pushuper.addEventListener('transitionend', () => {
       this.currentIndex++;
 
-      if (this.currentIndex === this.count - 1) {
+      if (this.currentIndex >= this.count - 1) {
         this.movedDistance = 0;
         this.currentIndex = 0;
         this.setDistance(0, false);
       }
     })
+    this.pushuper.addEventListener('transitionstart', () => {})
   }
 
   tick() {
@@ -59,10 +61,17 @@ class Pushup {
     } = this.options;
 
     this.timer = setInterval(() => {
-      this.movedDistance += distance;
-      this.setDistance(this.movedDistance);
-      onPushup(this.movedDistance)
-    }, interval * 1000);
+      this.move();
+      onPushup(this.movedDistance, this.currentIndex)
+    }, interval);
+  }
+
+  move() {
+    const {
+      distance,
+    } = this.options;
+    this.movedDistance += distance;
+    this.setDistance(this.movedDistance);
   }
 
   setDistance(y = 0, needTransitoin = true) {
@@ -71,25 +80,35 @@ class Pushup {
   }
 
   start() {
+    if (this.timer) return;
+
     this.options.onStart();
     this.tick();
   }
 
-  stop() {
-    clearInterval(this.timer);
-  }
-
   pause() {
-
+    clearInterval(this.timer);
+    this.timer = null;
   }
-
-  refresh() {}
 
   next() {
-
+    if (this.currentIndex >= this.count - 1) return
+    this.currentIndex++;
+    this.move();
   }
 
   prev() {
+    console.log(this.currentIndex);
+    if (this.currentIndex <= 0) return
+    this.currentIndex--;
+    this.move();
+  }
+
+  refresh() {
+
+  }
+
+  push() {
 
   }
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>pushup</title>
+    <style>
+      * {
+        margin: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      #pushup li {
+        height: 200px;
+        background-color: blanchedalmond;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="pushup">
+      <ul>
+        <li>这是第1个</li>
+      </ul>
+    </div>
+    <button id="pause">暂停</button>
+    <button id="start">开始</button>
+    <button id="prev">上一个</button>
+    <button id="next">下一个</button>
+    <script src="../dist/pushup.js"></script>
+    <script>
+      const pushup = new Pushup({
+        el: '#pushup',
+        // onPushup: (d, i) => {
+        //   console.log({
+        //     d,
+        //     i
+        //   })
+        // }
+      });
+
+      document.getElementById('pause').addEventListener('click', function() {
+        pushup.pause();
+      });
+
+      document.getElementById('start').addEventListener('click', function() {
+        pushup.start();
+      });
+
+      document.getElementById('prev').addEventListener('click', function() {
+        pushup.prev();
+      });
+
+      document.getElementById('next').addEventListener('click', function() {
+        pushup.next();
+      });
+    </script>
+  </body>
+</html>
